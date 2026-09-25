@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Frecuencia bioeléctrica en plantas — flujo del protocolo</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --text:#1c1c1a; --muted:#5f5e5a;
+  --line:#d8d6cd; --accent:#0f6e56; --accent-bg:#e1f5ee; --accent-text:#04342c;
+  --accent2:#853806; --accent2-bg:#faeeda; --accent2-text:#412402;
+  --radius:14px;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1b19; --card:#242422; --text:#ece9df; --muted:#a9a79d;
+    --line:#3a3934; --accent:#5dcaa5; --accent-bg:#085041; --accent-text:#9fe1cb;
+    --accent2:#f2a623; --accent2-bg:#633806; --accent2-text:#fac775;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1b19; --card:#242422; --text:#ece9df; --muted:#a9a79d;
+  --line:#3a3934; --accent:#5dcaa5; --accent-bg:#085041; --accent-text:#9fe1cb;
+  --accent2:#f2a623; --accent2-bg:#633806; --accent2-text:#fac775;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55;}
+.wrap{max-width:720px;margin:0 auto;padding:28px 20px 60px;}
+header{margin-bottom:24px;}
+h1{font-size:22px;font-weight:600;margin:0 0 6px;}
+.sub{color:var(--muted);font-size:14.5px;margin:0 0 18px;}
+.species{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;}
+.species div{flex:1;min-width:220px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
+.species h3{margin:0 0 4px;font-size:15px;}
+.species p{margin:0;color:var(--muted);font-size:13.5px;}
+.flow{position:relative;margin-top:28px;}
+.flow::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:2px;background:var(--line);}
+.step{position:relative;padding-left:56px;margin-bottom:14px;}
+.badge{position:absolute;left:0;top:2px;width:40px;height:40px;border-radius:50%;background:var(--accent-bg);color:var(--accent-text);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;border:2px solid var(--bg);}
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+summary::-webkit-details-marker{display:none;}
+summary .ttl{font-weight:600;font-size:15px;}
+summary .tag{font-size:11.5px;color:var(--muted);white-space:nowrap;}
+summary .chev{transition:transform .2s;color:var(--muted);flex-shrink:0;}
+details[open] summary .chev{transform:rotate(90deg);}
+.body{padding:0 16px 14px 16px;color:var(--muted);font-size:13.8px;}
+.body ul{margin:6px 0 0;padding-left:18px;}
+.body li{margin-bottom:4px;}
+code{background:var(--accent2-bg);color:var(--accent2-text);padding:1px 6px;border-radius:5px;font-size:12.5px;}
+pre{background:var(--accent2-bg);color:var(--accent2-text);padding:10px 12px;border-radius:8px;font-size:12px;overflow-x:auto;margin:8px 0 0;}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:26px;}
+.summary-grid div{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;text-align:center;}
+.summary-grid strong{display:block;font-size:20px;color:var(--accent);}
+.summary-grid span{font-size:12px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Frecuencia bioeléctrica en plantas</h1>
+<p class="sub">Flujo completo del protocolo: comparación entre <em>Epipremnum aureum</em> (potos) y <em>Aloe vera</em> mediante Arduino + AD8232. Toca cada paso para ver el detalle.</p>
+<div class="species">
+<div><h3>Epipremnum aureum</h3><p>Hoja fina y flexible. Textura membranácea. Respuesta eléctrica rápida a cambios.</p></div>
+<div><h3>Aloe vera</h3><p>Hoja carnosa y suculenta. Tejido acuífero grueso. Alta capacitancia de gel.</p></div>
+</div>
+</header>
+
+<div class="flow">
+
+<div class="step"><span class="badge">0</span>
+<details open><summary><span class="ttl">Planificación</span><span class="chev">›</span></summary>
+<div class="body">Matriz de objetivos e indicadores:
+<ul>
+<li>OE1 — Comparar frecuencia (Hz) → Arduino + electrodos Ag/AgCl</li>
+<li>OE2 — Analizar variabilidad (CV%) → cálculo estadístico en Excel</li>
+<li>OE3 — Correlación anatómica (grosor/longitud) → calibrador pie de rey</li>
+</ul>
+Variables controladas: <code>22°C ±1°C</code>, humedad de suelo equilibrada, <code>5 cm</code> fijos entre electrodos.
+</div></details></div>
+
+<div class="step"><span class="badge">1</span>
+<details><summary><span class="ttl">Equipamiento</span><span class="chev">›</span></summary>
+<div class="body">
+<ul>
+<li>Arduino Uno R3 + módulo amplificador ECG AD8232 (filtra ruido)</li>
+<li>Electrodos descartables de gel Ag/AgCl — mínimo 3 por planta (medición, referencia, tierra)</li>
+<li>Calibrador digital (0.05 mm), higrómetro de suelo, termómetro (±1°C), regla milimetrada</li>
+</ul>
+</div></details></div>
+
+<div class="step"><span class="badge">2</span>
+<details><summary><span class="ttl">Acondicionamiento</span><span class="chev">›</span></summary>
+<div class="body">
+<ul>
+<li>Ubicar las plantas lejos de corrientes de aire, luz cambiante y motores/transformadores</li>
+<li>Estabilizar la habitación a 22°C ±1°C, verificar antes de cada toma</li>
+<li>Regar ambas plantas 24 h antes, al mismo tiempo</li>
+<li>Reposo basal: 2 horas sin manipular la planta antes de la primera lectura</li>
+</ul>
+</div></details></div>
+
+<div class="step"><span class="badge">3</span>
+<details><summary><span class="ttl">Configuración del circuito</span><span class="chev">›</span></summary>
+<div class="body">
+<ul>
+<li>Distancia fija de 5 cm entre electrodo positivo (+) y de referencia (−)</li>
+<li>Salida analógica del módulo → pin <code>A0</code>; GND común; electrodo de masa en hoja vecina</li>
+<li>Esperar 2 horas con electrodos conectados antes de grabar (disipa el estrés táctil)</li>
+</ul>
+</div></details></div>
+
+<div class="step"><span class="badge">4</span>
+<details><summary><span class="ttl">Software de captura</span><span class="chev">›</span></summary>
+<div class="body">
+<pre>void setup() {
+  Serial.begin(9600);
+}
+void loop() {
+  int valor = analogRead(A0);
+  Serial.println(valor);
+  delay(20); // ~50 Hz de muestreo
+}</pre>
+Exportación automática vía script de Python o el Monitor Serie hacia CSV / Excel.
+</div></details></div>
+
+<div class="step"><span class="badge">5</span>
+<details><summary><span class="ttl">Muestreo diario</span><span class="chev">›</span></summary>
+<div class="body">
+<ul>
+<li>Verificar 22°C y % de humedad del sustrato</li>
+<li>Grabar 15 minutos continuos, sin vibraciones ni contacto</li>
+<li>Nombrar el archivo así: <code>Potos_2024-05-10_rep1.csv</code></li>
+<li>Repetir <code>n ≥ 3</code> veces, mismo horario, días distintos, para ambas especies</li>
+</ul>
+</div></details></div>
+
+<div class="step"><span class="badge">6</span>
+<details><summary><span class="ttl">Caracterización foliar (OE3)</span><span class="chev">›</span></summary>
+<div class="body">
+<ul>
+<li>Grosor foliar (mm): calibrador digital, presión suave entre haz y envés, zona inter-electrodo</li>
+<li>Longitud foliar (cm): regla milimetrada, desde la base del pecíolo hasta el ápice</li>
+</ul>
+</div></details></div>
+
+<div class="step"><span class="badge">7</span>
+<details><summary><span class="ttl">Analítica en Excel</span><span class="chev">›</span></summary>
+<div class="body">
+Coeficiente de variación: <code>=DESVEST(rango)/PROMEDIO(rango)*100</code>
+<ul>
+<li>Frecuencia media (Hz): conteo de picos por segundo → responde OE1</li>
+<li>CV%: fluctuación relativa en los 15 min → responde OE2</li>
+<li>Tabla resumen por fila: Especie | Hz | CV% | Grosor | Temp | Humedad</li>
+</ul>
+</div></details></div>
+
+<div class="step"><span class="badge">8</span>
+<details><summary><span class="ttl">Análisis estadístico</span><span class="chev">›</span></summary>
+<div class="body">
+<ul>
+<li><strong>2 grupos</strong> (Potos vs. Aloe): normal → t de Student; no normal → Mann-Whitney</li>
+<li><strong>&gt;2 grupos</strong> (varias hojas/días): normal → ANOVA; no normal → Kruskal-Wallis</li>
+<li><strong>Categóricos</strong> (presencia de picos): Chi-cuadrado (χ²)</li>
+</ul>
+</div></details></div>
+
+<div class="step"><span class="badge">9</span>
+<details><summary><span class="ttl">Conclusiones</span><span class="chev">›</span></summary>
+<div class="body">Resumen del protocolo en un vistazo — verifica cada punto antes de dar por válida una sesión.</div></details></div>
+
+</div>
+
+<div class="summary-grid">
+<div><strong>22°C</strong><span>temperatura fija</span></div>
+<div><strong>5 cm</strong><span>entre electrodos</span></div>
+<div><strong>15 min</strong><span>por grabación</span></div>
+<div><strong>n ≥ 3</strong><span>repeticiones mínimas</span></div>
+</div>
+
+</div>
+</body>
+</html>
