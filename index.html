@@ -3,22 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Frecuencia Bioeléctrica en Plantas — Diagrama de Flujo</title>
+<title>Diagrama de Flujo — Protocolo Experimental</title>
 <style>
 :root {
-  --bg-color: #f2f5f3;
-  --header-bg: linear-gradient(135deg, #183827, #234f37);
-  --header-border: #11281c;
+  --bg-color: #f4f6f4;
+  --header-bg: #1c402e;
+  --header-border: #143022;
   --header-text: #ffffff;
-  --col-header-bg: #234f37;
-  --card-bg: #ffffff;
-  --card-border: #a3c9b1;
-  --card-text: #1b2e23;
-  --accent-color: #2b6e49;
-  --line-color: #2b6e49;
-  --badge-bg: #e2f0e7;
-  --tag-bg: #f8ebe0;
-  --tag-text: #823c0c;
+  --card-bg: #e2ede6;
+  --card-border: #8ab89a;
+  --card-text: #1a2e22;
+  --arrow-color: #2d5a3f;
+  --code-bg: #22382b;
+  --code-text: #a3f0c0;
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -38,61 +35,55 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  gap: 16px;
 }
 
-/* PREGUNTA / OBJETIVO CENTRAL */
+/* OBJETIVO GENERAL */
 .main-target {
-  background: var(--header-bg);
+  background-color: var(--header-bg);
   color: var(--header-text);
   border: 2px solid var(--header-border);
-  border-radius: 12px;
-  padding: 18px 28px;
+  border-radius: 10px;
+  padding: 18px 24px;
   text-align: center;
   width: 100%;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   font-size: 13.5px;
   line-height: 1.5;
   box-sizing: border-box;
-  position: relative;
-  z-index: 2;
 }
 
 .main-target strong {
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   color: #a3f0c0;
 }
 
-/* LÍNEAS VECTORIALES CONECTORA SVG */
-.connector-svg {
+/* FLECHAS DE CONEXIÓN PRINCIPAL */
+.main-arrows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
-  height: 40px;
-  margin: -2px 0;
-  z-index: 1;
-}
-
-.connector-svg line {
-  stroke: var(--line-color);
-  stroke-width: 2.5;
-  stroke-linecap: round;
+  text-align: center;
+  color: var(--arrow-color);
+  font-size: 20px;
+  margin-top: -8px;
+  margin-bottom: -8px;
 }
 
 /* GRILLA DE 3 COLUMNAS */
 .columns-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
   width: 100%;
-  position: relative;
-  z-index: 2;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 850px) {
   .columns-grid {
     grid-template-columns: 1fr;
   }
-  .connector-svg {
+  .main-arrows {
     display: none;
   }
 }
@@ -101,173 +92,88 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
-/* ENCABEZADOS DE PREGUNTAS AUXILIARES */
+/* ENCABEZADOS DE OBJETIVO ESPECÍFICO */
 .column-header {
-  background-color: var(--col-header-bg);
+  background-color: var(--header-bg);
   color: var(--header-text);
-  border-radius: 10px;
-  padding: 16px 18px;
+  border: 2px solid var(--header-border);
+  border-radius: 8px;
+  padding: 14px 16px;
   text-align: center;
   width: 100%;
-  min-height: 100px;
+  min-height: 90px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.08);
   box-sizing: border-box;
-  border-bottom: 4px solid #143323;
 }
 
 .column-header h3 {
   margin: 0 0 6px 0;
-  font-size: 12.5px;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.5px;
   color: #a3f0c0;
 }
 
 .column-header p {
   margin: 0;
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 1.35;
+  font-weight: 400;
   opacity: 0.95;
 }
 
-/* CONECTORES VERTICALES */
-.vertical-connector {
-  width: 2px;
-  height: 20px;
-  background-color: var(--line-color);
-  position: relative;
-}
-
-.vertical-connector::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: -4px;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid var(--line-color);
-}
-
-/* CAJAS DE PASOS DEL PROCEDIMIENTO */
+/* CAJAS DE PASOS SECUENCIALES */
 .step-card {
   background-color: var(--card-bg);
-  border: 1.5px solid var(--card-border);
-  border-radius: 10px;
-  padding: 14px 16px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 12px 14px;
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.45;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
 }
 
-.step-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-}
-
-.step-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-.step-num {
-  background-color: var(--badge-bg);
-  color: var(--accent-color);
-  font-weight: 800;
-  font-size: 13px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid var(--card-border);
-  margin-top: 2px;
-}
-
-.step-text {
-  flex-grow: 1;
-}
-
-.step-title {
-  font-weight: 700;
-  color: #163624;
-  margin-bottom: 3px;
-  display: block;
-}
-
-.step-list {
+.step-card ul {
   margin: 4px 0 0 0;
   padding-left: 16px;
 }
 
-.step-list li {
+.step-card li {
   margin-bottom: 3px;
 }
 
-/* CÓDIGO Y SCRIPT DE ARDUINO */
+code {
+  background-color: #cde2d4;
+  color: #143022;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 11px;
+}
+
 pre {
-  background-color: #242422;
-  color: #a3f0c0;
-  padding: 8px 10px;
-  border-radius: 6px;
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  padding: 8px;
+  border-radius: 5px;
   font-size: 11px;
   overflow-x: auto;
-  margin: 4px 0 0 0;
-  font-family: Consolas, Monaco, monospace;
+  margin: 6px 0 0 0;
+  font-family: monospace;
 }
 
-/* IMÁGENES DE SOPORTE */
-.step-img-container {
-  width: 100%;
-  height: 100px;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid #d0e3d7;
-  background-color: #f9fbf9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.step-img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.img-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  width: 100%;
-  height: 100px;
-}
-
-.img-grid-2 .step-img-container {
-  height: 100%;
-}
-
-.caption {
-  font-size: 10px;
-  color: #557361;
-  text-align: center;
-  font-style: italic;
-  margin-top: -4px;
+.arrow-down {
+  color: var(--arrow-color);
+  font-size: 16px;
+  margin: -4px 0;
 }
 </style>
 </head>
@@ -275,242 +181,160 @@ pre {
 
 <div class="diagram-container">
 
-  <!-- PREGUNTA PRINCIPAL / OBJETIVO CENTRAL -->
+  <!-- OBJETIVO GENERAL -->
   <div class="main-target">
-    <strong>PREGUNTA GENERAL DE INVESTIGACIÓN:</strong> ¿En qué medida difieren las señales bioeléctricas y su variabilidad entre una especie de hoja ancha (<em>Epipremnum aureum</em>) y una especie de hojas más gruesas (<em>Aloe vera</em>) cuando se cultivan bajo las mismas condiciones?
+    <strong>OBJETIVO GENERAL:</strong> Comparación del perfil bioeléctrico entre <em>Epipremnum aureum</em> (potos: hoja fina, flexible y membranácea) y <em>Aloe vera</em> (sábila: hoja carnosa, suculenta con tejido acuífero) mediante Arduino Uno R3 y módulo AD8232.[cite: 8]
   </div>
 
-  <!-- CONECTORES VECTORIALES SVG -->
-  <svg class="connector-svg" viewBox="0 0 1200 40" preserveAspectRatio="none">
-    <line x1="600" y1="0" x2="600" y2="15" />
-    <line x1="200" y1="15" x2="1000" y2="15" />
-    <line x1="200" y1="15" x2="200" y2="35" />
-    <polygon points="195,33 200,40 205,33" fill="#2b6e49" />
-    <line x1="600" y1="15" x2="600" y2="35" />
-    <polygon points="595,33 600,40 605,33" fill="#2b6e49" />
-    <line x1="1000" y1="15" x2="1000" y2="35" />
-    <polygon points="995,33 1000,40 1005,33" fill="#2b6e49" />
-  </svg>
+  <!-- FLECHAS DE CONEXIÓN PRINCIPAL -->
+  <div class="main-arrows">
+    <div>▼</div>
+    <div>▼</div>
+    <div>▼</div>
+  </div>
 
-  <!-- GRILLA PRINCIPAL DE 3 COLUMNAS -->
+  <!-- GRILLA DE 3 COLUMNAS DE OBJETIVOS ESPECÍFICOS -->
   <div class="columns-grid">
 
-    <!-- ================= COLUMNA 1 ================= -->
+    <!-- ================= COLUMNA 1: OE1 ================= -->
     <div class="column">
       <div class="column-header">
-        <h3>PREGUNTA AUXILIAR 1</h3>
-        <p>¿Cómo influye la anatomía del tejido foliar en la frecuencia (Hz) y en la generación de potenciales eléctricos en cada especie?</p>
+        <h3>OBJETIVO ESPECÍFICO 1</h3>[cite: 8]
+        <p>Comparar la frecuencia media de la señal (Hz) entre ambas especies utilizando el sistema de adquisición Arduino.[cite: 8]</p>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 1.1 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">1</span>
-          <div class="step-text">
-            <span class="step-title">Reunir especímenes y materiales</span>
-            Junta en la mesa de trabajo las plantas de <em>Epipremnum aureum</em> (potos) y <em>Aloe vera</em> (sábila), junto con el hardware de medición.
-          </div>
-        </div>
-        <div class="img-grid-2">
-          <div class="step-img-container">
-            <img src="http://googleusercontent.com/image_collection/image_retrieval/17332586117982827277_0" alt="Potos">
-          </div>
-          <div class="step-img-container">
-            <img src="http://googleusercontent.com/image_collection/image_retrieval/9870468654056511458_0" alt="Aloe vera">
-          </div>
-        </div>
-        <div class="caption">Especies: Potos y Aloe vera</div>
+        <strong>1. Equipamiento necesario:</strong>
+        <ul>
+          <li>Arduino Uno R3 + módulo amplificador ECG AD8232 (filtra ruido eléctrico).[cite: 8]</li>
+          <li>Electrodos descartables de gel Ag/AgCl (mínimo 3 por planta: medición, referencia y tierra) con cables cocodrilo.[cite: 8]</li>
+        </ul>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 1.2 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">2</span>
-          <div class="step-text">
-            <span class="step-title">Montaje de electrodos a distancia fija</span>
-            Elige una hoja sana. Pega el electrodo positivo (+) y el negativo (−) a exactamente <strong>5 cm</strong> de distancia entre sí sobre la lámina foliar. Conecta el tercer electrodo de tierra en un tallo vecino.
-          </div>
-        </div>
-        <div class="step-img-container">
-          <img src="http://googleusercontent.com/image_collection/image_retrieval/7473852372922195717_0" alt="Electrodos de gel">
-        </div>
-        <div class="caption">Electrodos descartables de gel Ag/AgCl</div>
+        <strong>2. Configuración del circuito:</strong>
+        <ul>
+          <li>Distancia fija de <code>5 cm</code> entre el electrodo positivo (+) y el de referencia (−).[cite: 8]</li>
+          <li>Conexiones: <code>OUTPUT</code> → pin <code>A0</code>; <code>GND</code> común; electrodo de masa (RL) en hoja vecina.[cite: 8]</li>
+          <li>Estabilización de contacto: aguardar <code>2 horas</code> con electrodos puestos antes de grabar.[cite: 8]</li>
+        </ul>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 1.3 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">3</span>
-          <div class="step-text">
-            <span class="step-title">Conexión y programa de captura</span>
-            Conecta la salida analógica al pin <strong>A0</strong> del Arduino Uno R3. Sube el código de adquisición a 50 Hz (~20 ms de retardo):
-            <pre>void setup() { Serial.begin(9600); }
+        <strong>3. Software de captura (Arduino IDE):</strong>
+        <pre>void setup() {
+  Serial.begin(9600);
+}
 void loop() {
   int valor = analogRead(A0);
   Serial.println(valor);
-  delay(20);
+  delay(20); // Muestreo ~50 Hz
 }</pre>
-          </div>
-        </div>
-        <div class="step-img-container">
-          <img src="http://googleusercontent.com/image_collection/image_retrieval/654114410799263701_0" alt="Arduino Uno R3">
-        </div>
-        <div class="caption">Arduino Uno R3 vía USB</div>
+        Volcado directo vía Python o Monitor Serie a CSV / Excel.[cite: 8]
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 1.4 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">4</span>
-          <div class="step-text">
-            <span class="step-title">Cálculo de frecuencia media (Hz)</span>
-            Saca la frecuencia media (Hz) contando las oscilaciones por segundo en Excel y compara las diferencias de promedios entre ambas especies.
-          </div>
-        </div>
+        <strong>4. Obtención de Hz medio:</strong>
+        Conteo de picos por segundo sobre las grabaciones continuas para obtener la frecuencia media de cada especie y comparar sus valores.[cite: 8]
       </div>
     </div>
 
-
-    <!-- ================= COLUMNA 2 ================= -->
+    <!-- ================= COLUMNA 2: OE2 ================= -->
     <div class="column">
       <div class="column-header">
-        <h3>PREGUNTA AUXILIAR 2</h3>
-        <p>¿Qué relación existe entre el grosor de la hoja y la variabilidad/estabilidad de la frecuencia bioeléctrica producida?</p>
+        <h3>OBJETIVO ESPECÍFICO 2</h3>[cite: 8]
+        <p>Analizar la variabilidad y estabilidad de la señal bioeléctrica mediante el Coeficiente de Variación (CV%).[cite: 8]</p>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 2.1 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">1</span>
-          <div class="step-text">
-            <span class="step-title">Rutina de grabación diaria</span>
-            Graba la señal de cada planta continuamente durante <strong>15 minutos</strong> sin tocar la mesa ni la hoja, repitiendo el proceso mínimo 3 a 5 veces en días distintos a la misma hora.
-          </div>
-        </div>
+        <strong>1. Acondicionamiento ambiental:</strong>
+        <ul>
+          <li>Aislar de corrientes de aire, sol directo cambiante y motores/transformadores.[cite: 8]</li>
+          <li>Homogeneizar riego: regar ambas plantas 24 horas antes del experimento.[cite: 8]</li>
+          <li>Reposo basal: <code>2 horas</code> de descanso sin tocar la planta antes de la lectura.[cite: 8]</li>
+        </ul>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 2.2 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">2</span>
-          <div class="step-text">
-            <span class="step-title">Cálculo del Coeficiente de Variación (CV%)</span>
-            Procesa los 15 min de datos en Excel/Sheets para obtener la fluctuación relativa con la fórmula:
-            <br><code>CV% = (Desviación Estándar ÷ Promedio) × 100</code>
-          </div>
-        </div>
+        <strong>2. Muestreo diario estandarizado:</strong>
+        <ul>
+          <li>Verificar humedad del sustrato previa a cada sesión.[cite: 8]</li>
+          <li>Grabación continua de <code>15 minutos</code> sin vibraciones ni contacto físico.[cite: 8]</li>
+          <li>Guardar como: <code>Especie_Fecha_repN.csv</code> (mínimo <code>n ≥ 3</code> repeticiones en días distintos).[cite: 8]</li>
+        </ul>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 2.3 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">3</span>
-          <div class="step-text">
-            <span class="step-title">Medición morphométrica foliar</span>
-            Mide el grosor de la hoja (mm) apretando suavemente con el calibrador entre el haz y el envés donde estaban los electrodos. Mide la longitud (cm) con regla.
-          </div>
-        </div>
-        <div class="step-img-container">
-          <img src="http://googleusercontent.com/image_collection/image_retrieval/1483700360420559077_0" alt="Calibrador midiendo hoja">
-        </div>
-        <div class="caption">Pie de rey / Calibrador digital (±0.05 mm)</div>
+        <strong>3. Cálculo de variabilidad en Excel:</strong>
+        Evaluación de la fluctuación relativa durante los 15 minutos mediante la fórmula:
+        <br><code>CV% = (DESVEST(rango) / PROMEDIO(rango)) * 100</code>[cite: 8]
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 2.4 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">4</span>
-          <div class="step-text">
-            <span class="step-title">Correlación anatomía–estabilidad</span>
-            Aplica la correlación de Pearson (<code>=COEF.DE.CORREL</code>) entre el grosor foliar y el CV% para evaluar si el parénquima acuífero estabiliza la señal.
-          </div>
-        </div>
+        <strong>4. Comparación de estabilidad:</strong>
+        Comparar el CV% promedio obtenido entre Potos y Aloe vera para concluir cuál especie presenta una señal más estable o fluctuante.[cite: 8]
       </div>
     </div>
 
-
-    <!-- ================= COLUMNA 3 ================= -->
+    <!-- ================= COLUMNA 3: OE3 ================= -->
     <div class="column">
       <div class="column-header">
-        <h3>PREGUNTA AUXILIAR 3</h3>
-        <p>¿Cómo impacta el ruido ambiental en la precisión de los datos y qué estrategias filtran el error sistemático?</p>
+        <h3>OBJETIVO ESPECÍFICO 3</h3>[cite: 8]
+        <p>Correlacionar las características anatómicas foliares (grosor y longitud) con la señal bioeléctrica.[cite: 8]</p>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 3.1 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">1</span>
-          <div class="step-text">
-            <span class="step-title">Acondicionamiento y aislamiento</span>
-            Ubica los especímenes en un cuarto interior libre de corrientes de aire, luz solar directa cambiante y lejos de transformadores o motores eléctricos para evitar interferencias.
-          </div>
-        </div>
+        <strong>1. Instrumental de metrología:</strong>
+        <ul>
+          <li>Calibrador digital (precisión <code>0.05 mm</code>).[cite: 8]</li>
+          <li>Regla milimetrada.[cite: 8]</li>
+          <li>Higrómetro de suelo.[cite: 8]</li>
+        </ul>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 3.2 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">2</span>
-          <div class="step-text">
-            <span class="step-title">Estandarización de variables controladas</span>
-            Manten las condiciones ambientales fijas antes de registrar:
-            <ul class="step-list">
-              <li>Temperatura ambiental: <strong>22 °C ± 1 °C</strong>.</li>
-              <li>Riego homogéneo: 24 h antes.</li>
-              <li>Reposo sin manipulación: <strong>2 horas</strong>.</li>
-            </ul>
-          </div>
-        </div>
+        <strong>2. Caracterización morfométrica foliar:</strong>
+        <ul>
+          <li><strong>Grosor foliar (mm):</strong> calibrador digital con presión suave entre haz y envés en la zona inter-electrodo.[cite: 8]</li>
+          <li><strong>Longitud foliar (cm):</strong> regla milimetrada desde la base del pecíolo hasta el ápice.[cite: 8]</li>
+        </ul>
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 3.3 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">3</span>
-          <div class="step-text">
-            <span class="step-title">Módulo de filtrado ECG (AD8232)</span>
-            Utiliza el sensor amplificador/filtro entre los electrodos y el pin A0 del Arduino para eliminar electromiografía y ruido de la red eléctrica.
-          </div>
-        </div>
+        <strong>3. Consolidación en tabla resumen:</strong>
+        Organizar por fila en Excel: <code>Especie | Hz | CV% | Grosor (mm) | Longitud (cm) | Humedad (%)</code>.[cite: 8]
       </div>
 
-      <div class="vertical-connector"></div>
+      <div class="arrow-down">▼</div>
 
-      <!-- PASO 3.4 -->
       <div class="step-card">
-        <div class="step-header">
-          <span class="step-num">4</span>
-          <div class="step-text">
-            <span class="step-title">Evaluación de significancia estadística</span>
-            Aplica la prueba estadística correspondiente para validar los datos descartando el error:
-            <ul class="step-list">
-              <li>Muestras normales → <strong>Prueba t de Student</strong>.</li>
-              <li>No normales → <strong>Mann-Whitney / Wilcoxon</strong>.</li>
-            </ul>
-          </div>
-        </div>
+        <strong>4. Análisis estadístico y correlación:</strong>
+        <ul>
+          <li>Pruebas de hipótesis: 2 grupos (t de Student / Mann-Whitney) o >2 grupos (ANOVA / Kruskal-Wallis); Chi-cuadrado para categóricos.[cite: 8]</li>
+          <li>Correlación de Pearson entre grosor/longitud y los parámetros eléctricos (Hz y CV%).[cite: 8]</li>
+        </ul>
       </div>
     </div>
 
