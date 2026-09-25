@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagrama de Flujo — Protocolo Experimental</title>
+<title>Frecuencia bioeléctrica en plantas — protocolo experimental</title>
 <style>
 :root {
   --bg-color: #f4f6f4;
@@ -38,7 +38,7 @@ body {
   gap: 16px;
 }
 
-/* OBJETIVO GENERAL */
+/* OBJETIVO GENERAL / HEADER */
 .main-target {
   background-color: var(--header-bg);
   color: var(--header-text);
@@ -57,6 +57,12 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #a3f0c0;
+}
+
+.species-info {
+  margin-top: 8px;
+  font-size: 12.5px;
+  opacity: 0.9;
 }
 
 /* FLECHAS DE CONEXIÓN PRINCIPAL */
@@ -104,7 +110,7 @@ body {
   padding: 14px 16px;
   text-align: center;
   width: 100%;
-  min-height: 90px;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -139,6 +145,9 @@ body {
   width: 100%;
   box-sizing: border-box;
   box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .step-card ul {
@@ -170,10 +179,51 @@ pre {
   font-family: monospace;
 }
 
+.explain {
+  margin-top: 6px;
+  padding-left: 10px;
+  border-left: 2px solid var(--arrow-color);
+  font-size: 11px;
+}
+
+.explain p {
+  margin: 2px 0;
+}
+
 .arrow-down {
   color: var(--arrow-color);
   font-size: 16px;
   margin: -4px 0;
+}
+
+/* CONTENEDORES DE IMÁGENES PÚBLICAS */
+.img-container {
+  width: 100%;
+  height: 110px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  background-color: #ffffff;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  width: 100%;
+}
+
+.caption {
+  font-size: 10px;
+  color: #2d5a3f;
+  text-align: center;
+  font-style: italic;
 }
 </style>
 </head>
@@ -181,9 +231,12 @@ pre {
 
 <div class="diagram-container">
 
-  <!-- OBJETIVO GENERAL -->
+  <!-- ENCABEZADO PRINCIPAL DE TU ARCHIVO -->
   <div class="main-target">
-    <strong>OBJETIVO GENERAL:</strong> Comparación del perfil bioeléctrico entre <em>Epipremnum aureum</em> (potos: hoja fina, flexible y membranácea) y <em>Aloe vera</em> (sábila: hoja carnosa, suculenta con tejido acuífero) mediante Arduino Uno R3 y módulo AD8232.[cite: 8]
+    <strong>Frecuencia bioeléctrica en plantas — protocolo experimental</strong>[cite: 8]
+    <div class="species-info">
+      Comparación entre <em>Epipremnum aureum</em> (potos: hoja fina y flexible, textura membranácea) y <em>Aloe vera</em> (sábila: hoja carnosa y suculenta, tejido acuífero grueso) mediante Arduino Uno R3 + módulo AD8232.[cite: 8]
+    </div>
   </div>
 
   <!-- FLECHAS DE CONEXIÓN PRINCIPAL -->
@@ -193,24 +246,34 @@ pre {
     <div>▼</div>
   </div>
 
-  <!-- GRILLA DE 3 COLUMNAS DE OBJETIVOS ESPECÍFICOS -->
+  <!-- GRILLA DE 3 COLUMNAS -->
   <div class="columns-grid">
 
-    <!-- ================= COLUMNA 1: OE1 ================= -->
+    <!-- ================= COLUMNA 1 ================= -->
     <div class="column">
       <div class="column-header">
-        <h3>OBJETIVO ESPECÍFICO 1</h3>[cite: 8]
-        <p>Comparar la frecuencia media de la señal (Hz) entre ambas especies utilizando el sistema de adquisición Arduino.[cite: 8]</p>
+        <h3>OBJETIVO ESPECÍFICO 1</h3>
+        <p>Comparar cómo influye la anatomía del tejido foliar en la frecuencia (Hz) y en la generación de potenciales eléctricos en cada especie.</p>
       </div>
 
       <div class="arrow-down">▼</div>
 
       <div class="step-card">
-        <strong>1. Equipamiento necesario:</strong>
+        <strong>1. Equipamiento:</strong>
         <ul>
-          <li>Arduino Uno R3 + módulo amplificador ECG AD8232 (filtra ruido eléctrico).[cite: 8]</li>
-          <li>Electrodos descartables de gel Ag/AgCl (mínimo 3 por planta: medición, referencia y tierra) con cables cocodrilo.[cite: 8]</li>
+          <li>Arduino Uno R3 + módulo amplificador ECG AD8232 (filtra ruido eléctrico)[cite: 8]</li>
+          <li>Electrodos descartables de gel Ag/AgCl — mínimo 3 por planta (medición, referencia y tierra), con cables tipo cocodrilo[cite: 8]</li>
+          <li>Calibrador digital, precisión <code>0.05 mm</code>[cite: 8]</li>
+          <li>Higrómetro de suelo y Regla milimetrada[cite: 8]</li>
         </ul>
+        <div class="img-grid-2">
+          <div class="img-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Arduino_Uno_-_R3.jpg/640px-Arduino_Uno_-_R3.jpg" alt="Arduino Uno R3">
+          </div>
+          <div class="img-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Epipremnum_aureum_31082012.jpg/640px-Epipremnum_aureum_31082012.jpg" alt="Epipremnum aureum">
+          </div>
+        </div>
       </div>
 
       <div class="arrow-down">▼</div>
@@ -218,16 +281,16 @@ pre {
       <div class="step-card">
         <strong>2. Configuración del circuito:</strong>
         <ul>
-          <li>Distancia fija de <code>5 cm</code> entre el electrodo positivo (+) y el de referencia (−).[cite: 8]</li>
-          <li>Conexiones: <code>OUTPUT</code> → pin <code>A0</code>; <code>GND</code> común; electrodo de masa (RL) en hoja vecina.[cite: 8]</li>
-          <li>Estabilización de contacto: aguardar <code>2 horas</code> con electrodos puestos antes de grabar.[cite: 8]</li>
+          <li>Geometría de electrodos: distancia fija de <code>5 cm</code> entre el electrodo positivo (+) y el de referencia (−)[cite: 8]</li>
+          <li>Conexiones al Arduino: <code>OUTPUT</code> del módulo → pin <code>A0</code>; <code>GND</code> común; electrodo de masa (RL) en hoja vecina; opcionalmente <code>LO+</code> → <code>D10</code> y <code>LO−</code> → <code>D11</code> para detectar electrodos desconectados[cite: 8]</li>
+          <li>Estabilización de contacto: aguardar <code>2 horas</code> con electrodos conectados antes de grabar datos, para disipar el estrés táctil[cite: 8]</li>
         </ul>
       </div>
 
       <div class="arrow-down">▼</div>
 
       <div class="step-card">
-        <strong>3. Software de captura (Arduino IDE):</strong>
+        <strong>3. Software de captura:</strong>
         <pre>void setup() {
   Serial.begin(9600);
 }
@@ -235,78 +298,41 @@ void loop() {
   int valor = analogRead(A0);
   Serial.println(valor);
   delay(20); // Muestreo ~50 Hz
-}</pre>
-        Volcado directo vía Python o Monitor Serie a CSV / Excel.[cite: 8]
+}</pre>[cite: 8]
+        <div class="explain">
+          <p><code>Serial.begin(9600)</code>: abre comunicación serie a 9600 baudios.[cite: 8]</p>
+          <p><code>analogRead(A0)</code>: lee el voltaje en A0 y lo convierte entre 0 y 1023.[cite: 8]</p>
+          <p><code>delay(20)</code>: produce frecuencia de muestreo de ~50 Hz.[cite: 8]</p>
+        </div>
+        Exportación: volcado directo mediante script de Python o el Monitor Serie hacia CSV / Excel.[cite: 8]
       </div>
 
       <div class="arrow-down">▼</div>
 
       <div class="step-card">
-        <strong>4. Obtención de Hz medio:</strong>
-        Conteo de picos por segundo sobre las grabaciones continuas para obtener la frecuencia media de cada especie y comparar sus valores.[cite: 8]
+        <strong>4. Analítica en Excel (OE1):</strong>
+        <ul>
+          <li><strong>Frecuencia media (Hz):</strong> conteo de picos por segundo. Responde al Objetivo Específico 1.[cite: 8]</li>
+        </ul>
       </div>
     </div>
 
-    <!-- ================= COLUMNA 2: OE2 ================= -->
+    <!-- ================= COLUMNA 2 ================= -->
     <div class="column">
       <div class="column-header">
-        <h3>OBJETIVO ESPECÍFICO 2</h3>[cite: 8]
-        <p>Analizar la variabilidad y estabilidad de la señal bioeléctrica mediante el Coeficiente de Variación (CV%).[cite: 8]</p>
+        <h3>OBJETIVO ESPECÍFICO 2</h3>
+        <p>Analizar qué relación existe entre el grosor de la hoja y la estabilidad de la frecuencia bioeléctrica producida.</p>
       </div>
 
       <div class="arrow-down">▼</div>
 
       <div class="step-card">
-        <strong>1. Acondicionamiento ambiental:</strong>
+        <strong>1. Muestreo diario:</strong>
         <ul>
-          <li>Aislar de corrientes de aire, sol directo cambiante y motores/transformadores.[cite: 8]</li>
-          <li>Homogeneizar riego: regar ambas plantas 24 horas antes del experimento.[cite: 8]</li>
-          <li>Reposo basal: <code>2 horas</code> de descanso sin tocar la planta antes de la lectura.[cite: 8]</li>
-        </ul>
-      </div>
-
-      <div class="arrow-down">▼</div>
-
-      <div class="step-card">
-        <strong>2. Muestreo diario estandarizado:</strong>
-        <ul>
-          <li>Verificar humedad del sustrato previa a cada sesión.[cite: 8]</li>
-          <li>Grabación continua de <code>15 minutos</code> sin vibraciones ni contacto físico.[cite: 8]</li>
-          <li>Guardar como: <code>Especie_Fecha_repN.csv</code> (mínimo <code>n ≥ 3</code> repeticiones en días distintos).[cite: 8]</li>
-        </ul>
-      </div>
-
-      <div class="arrow-down">▼</div>
-
-      <div class="step-card">
-        <strong>3. Cálculo de variabilidad en Excel:</strong>
-        Evaluación de la fluctuación relativa durante los 15 minutos mediante la fórmula:
-        <br><code>CV% = (DESVEST(rango) / PROMEDIO(rango)) * 100</code>[cite: 8]
-      </div>
-
-      <div class="arrow-down">▼</div>
-
-      <div class="step-card">
-        <strong>4. Comparación de estabilidad:</strong>
-        Comparar el CV% promedio obtenido entre Potos y Aloe vera para concluir cuál especie presenta una señal más estable o fluctuante.[cite: 8]
-      </div>
-    </div>
-
-    <!-- ================= COLUMNA 3: OE3 ================= -->
-    <div class="column">
-      <div class="column-header">
-        <h3>OBJETIVO ESPECÍFICO 3</h3>[cite: 8]
-        <p>Correlacionar las características anatómicas foliares (grosor y longitud) con la señal bioeléctrica.[cite: 8]</p>
-      </div>
-
-      <div class="arrow-down">▼</div>
-
-      <div class="step-card">
-        <strong>1. Instrumental de metrología:</strong>
-        <ul>
-          <li>Calibrador digital (precisión <code>0.05 mm</code>).[cite: 8]</li>
-          <li>Regla milimetrada.[cite: 8]</li>
-          <li>Higrómetro de suelo.[cite: 8]</li>
+          <li>Medir el porcentaje de humedad del sustrato antes de cada sesión[cite: 8]</li>
+          <li>Grabación continua de <code>15 minutos</code>, sin vibraciones ni contacto físico[cite: 8]</li>
+          <li>Nomenclatura del archivo: <code>Especie_Fecha_repN.csv</code> (ej. <code>Potos_2024-05-10_rep1.csv</code>)[cite: 8]</li>
+          <li>Repeticiones: <code>n ≥ 3</code>, mismo horario, en días distintos, para ambas especies[cite: 8]</li>
         </ul>
       </div>
 
@@ -315,26 +341,61 @@ void loop() {
       <div class="step-card">
         <strong>2. Caracterización morfométrica foliar:</strong>
         <ul>
-          <li><strong>Grosor foliar (mm):</strong> calibrador digital con presión suave entre haz y envés en la zona inter-electrodo.[cite: 8]</li>
-          <li><strong>Longitud foliar (cm):</strong> regla milimetrada desde la base del pecíolo hasta el ápice.[cite: 8]</li>
+          <li><strong>Grosor foliar (mm):</strong> calibrador digital, presión suave entre el haz y el envés, en la zona inter-electrodo. Precisión <code>0.05 mm</code>.[cite: 8]</li>
+          <li><strong>Longitud foliar (cm):</strong> regla milimetrada, desde la base del pecíolo hasta el ápice foliar.[cite: 8]</li>
         </ul>
+        <div class="img-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Digital_caliper.jpg/640px-Digital_caliper.jpg" alt="Calibrador digital">
+        </div>
+        <div class="caption">Calibrador digital (precisión 0.05 mm)</div>
       </div>
 
       <div class="arrow-down">▼</div>
 
       <div class="step-card">
-        <strong>3. Consolidación en tabla resumen:</strong>
-        Organizar por fila en Excel: <code>Especie | Hz | CV% | Grosor (mm) | Longitud (cm) | Humedad (%)</code>.[cite: 8]
-      </div>
-
-      <div class="arrow-down">▼</div>
-
-      <div class="step-card">
-        <strong>4. Análisis estadístico y correlación:</strong>
+        <strong>3. Analítica en Excel (OE2):</strong>
         <ul>
-          <li>Pruebas de hipótesis: 2 grupos (t de Student / Mann-Whitney) o >2 grupos (ANOVA / Kruskal-Wallis); Chi-cuadrado para categóricos.[cite: 8]</li>
-          <li>Correlación de Pearson entre grosor/longitud y los parámetros eléctricos (Hz y CV%).[cite: 8]</li>
+          <li><strong>Coeficiente de Variación (CV%):</strong> evaluación de la fluctuación relativa durante los 15 minutos.[cite: 8]</li>
         </ul>
+        Fórmula del CV%: <code>=DESVEST(rango)/PROMEDIO(rango)*100</code>[cite: 8]
+        <p style="margin-top:4px; margin-bottom:0;">Tabla resumen por fila: Especie | Hz | CV% | Grosor (mm) | Longitud (cm) | Humedad (%).[cite: 8]</p>
+      </div>
+    </div>
+
+    <!-- ================= COLUMNA 3 ================= -->
+    <div class="column">
+      <div class="column-header">
+        <h3>OBJETIVO ESPECÍFICO 3</h3>
+        <p>Deducir cómo impacta el ruido ambiental en la precisión de los datos y qué estrategias filtran el error del sistema.</p>
+      </div>
+
+      <div class="arrow-down">▼</div>
+
+      <div class="step-card">
+        <strong>1. Acondicionamiento del espacio:</strong>
+        <ul>
+          <li>Ubicar los especímenes lejos de corrientes de aire, luz solar directa cambiante y transformadores o motores (ruido electromagnético)[cite: 8]</li>
+          <li>Homogeneización de riego: regar ambas plantas simultáneamente 24 horas antes del experimento[cite: 8]</li>
+          <li>Reposo basal: dejar descansar las plantas sin manipulación física durante al menos <code>2 horas</code> antes de la primera lectura[cite: 8]</li>
+        </ul>
+      </div>
+
+      <div class="arrow-down">▼</div>
+
+      <div class="step-card">
+        <strong>2. Análisis estadístico (Regla de decisión):</strong>
+        <ul>
+          <li><strong>2 grupos</strong> (Potos vs. Aloe, para OE1/OE2): si la distribución es normal (p > 0.05) → t de Student; si no cumple normalidad → Mann-Whitney / Wilcoxon.[cite: 8]</li>
+          <li><strong>> 2 grupos</strong> (variación multi-hoja o multi-día): normal → ANOVA de una vía; no normal → Kruskal-Wallis.[cite: 8]</li>
+          <li><strong>Categóricos:</strong> Chi-cuadrado (χ²) de independencia.[cite: 8]</li>
+        </ul>
+      </div>
+
+      <div class="arrow-down">▼</div>
+
+      <div class="step-card">
+        <strong>3. Conclusiones:</strong>
+        Resumen del protocolo: verifica cada fase antes de dar por válida una sesión de registro, y consolida los resultados de OE1, OE2 y OE3 en tu tabla final antes de redactar las conclusiones.[cite: 8]
       </div>
     </div>
 
