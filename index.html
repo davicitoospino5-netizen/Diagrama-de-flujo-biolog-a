@@ -3,23 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagrama de Flujo — Frecuencia Bioeléctrica en Plantas</title>
+<title>Diagrama de Flujo Experimental — Bioelectricidad Foliar</title>
 <style>
 :root {
-  --bg-color: #f4f6f4;
-  --header-bg: #1c402e;
-  --header-border: #143022;
+  --bg-color: #f2f5f3;
+  --header-bg: linear-gradient(135deg, #183827, #234f37);
+  --header-border: #11281c;
   --header-text: #ffffff;
-  --card-bg: #e2ede6;
-  --card-border: #8ab89a;
-  --card-text: #1a2e22;
-  --arrow-color: #2d5a3f;
+  --col-header-bg: #234f37;
+  --card-bg: #ffffff;
+  --card-border: #a3c9b1;
+  --card-text: #1b2e23;
+  --accent-color: #2b6e49;
+  --line-color: #2b6e49;
+  --badge-bg: #e2f0e7;
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
   margin: 0;
-  padding: 30px 20px;
+  padding: 40px 20px;
   background-color: var(--bg-color);
   font-family: var(--font-family);
   display: flex;
@@ -28,58 +31,66 @@ body {
 }
 
 .diagram-container {
-  max-width: 1100px;
+  max-width: 1200px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  position: relative;
 }
 
 /* OBJETIVO GENERAL */
 .main-target {
-  background-color: var(--header-bg);
+  background: var(--header-bg);
   color: var(--header-text);
   border: 2px solid var(--header-border);
-  border-radius: 10px;
-  padding: 16px 24px;
+  border-radius: 12px;
+  padding: 18px 28px;
   text-align: center;
   width: 100%;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   font-size: 13.5px;
   line-height: 1.5;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 
 .main-target strong {
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+  color: #a3f0c0;
 }
 
-/* FLECHAS PRINCIPALES DE CONEXIÓN */
-.main-arrows {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+/* CONECTORES SVG PRINCIPALES */
+.connector-svg {
   width: 100%;
-  text-align: center;
-  color: var(--arrow-color);
-  font-size: 20px;
-  margin-top: -10px;
-  margin-bottom: -10px;
+  height: 40px;
+  margin: -2px 0;
+  z-index: 1;
 }
 
-/* COLUMNAS DE OBJETIVOS ESPECÍFICOS */
+.connector-svg line, .connector-svg path {
+  stroke: var(--line-color);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* GRILLA DE 3 COLUMNAS */
 .columns-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 900px) {
   .columns-grid {
     grid-template-columns: 1fr;
   }
-  .main-arrows {
+  .connector-svg {
     display: none;
   }
 }
@@ -88,58 +99,144 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
 }
 
-/* ENCABEZADOS DE OBJETIVO ESPECÍFICO */
+/* ENCABEZADOS DE COLUMNA */
 .column-header {
-  background-color: var(--header-bg);
+  background-color: var(--col-header-bg);
   color: var(--header-text);
-  border: 2px solid var(--header-border);
-  border-radius: 8px;
-  padding: 14px 16px;
+  border-radius: 10px;
+  padding: 16px 18px;
   text-align: center;
   width: 100%;
-  min-height: 90px;
+  min-height: 95px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 0 3px 5px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   box-sizing: border-box;
+  border-bottom: 4px solid #143323;
 }
 
 .column-header h3 {
   margin: 0 0 6px 0;
   font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  color: #a3f0c0;
 }
 
 .column-header p {
   margin: 0;
   font-size: 12px;
-  line-height: 1.35;
-  font-weight: 400;
+  line-height: 1.4;
   opacity: 0.95;
+}
+
+/* CONECTOR VERTICAL DENTRO DE LA COLUMNA */
+.vertical-connector {
+  width: 2px;
+  height: 20px;
+  background-color: var(--line-color);
+  position: relative;
+}
+
+.vertical-connector::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -4px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--line-color);
 }
 
 /* CAJAS DE PASOS SECUENCIALES */
 .step-card {
   background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  padding: 12px 14px;
+  border: 1.5px solid var(--card-border);
+  border-radius: 10px;
+  padding: 14px 16px;
   font-size: 12px;
-  line-height: 1.45;
+  line-height: 1.5;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.arrow-down {
-  color: var(--arrow-color);
-  font-size: 16px;
-  margin: -6px 0;
+.step-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-num {
+  background-color: var(--badge-bg);
+  color: var(--accent-color);
+  font-weight: 800;
+  font-size: 13px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--card-border);
+}
+
+.step-text {
+  flex-grow: 1;
+}
+
+/* FOTOS DE COMPONENTES E INSTRUMENTOS */
+.step-img-container {
+  width: 100%;
+  height: 110px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #d0e3d7;
+  background-color: #f9fbf9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  width: 100%;
+  height: 110px;
+}
+
+.img-grid-2 .step-img-container {
+  height: 100%;
+}
+
+.caption {
+  font-size: 10.5px;
+  color: #557361;
+  text-align: center;
+  font-style: italic;
+  margin-top: -4px;
 }
 </style>
 </head>
@@ -149,112 +246,194 @@ body {
 
   <!-- OBJETIVO GENERAL -->
   <div class="main-target">
-    <strong>OBJETIVO GENERAL:</strong> Analizar los perfiles de frecuencia bioeléctrica (Hz) en dos especies vegetales con morfologías foliares distintas de <em>Epipremnum aureum</em> y <em>Aloe vera</em> mediante un Arduino Uno R3 con electrodos descartables de gel para identificar patrones eléctricos característicos vinculados a su fisiología diferencial.
+    <strong>OBJETIVO GENERAL:</strong> Analizar los perfiles de frecuencia bioeléctrica (Hz) en dos especies vegetales con morfologías foliares distintas de <em>Epipremnum aureum</em> y <em>Aloe vera</em> mediante un Arduino Uno R3 con electrodos descartables de gel para identificar patrones eléctricos característicos vinculados a su fisiología diferencial.[cite: 7]
   </div>
 
-  <!-- FLECHAS DE CONEXIÓN -->
-  <div class="main-arrows">
-    <div>▼</div>
-    <div>▼</div>
-    <div>▼</div>
-  </div>
+  <!-- LÍNEAS VECTORIALES DE CONEXIÓN PRINCIPAL -->
+  <svg class="connector-svg" viewBox="0 0 1200 40" preserveAspectRatio="none">
+    <!-- Línea vertical central -->
+    <line x1="600" y1="0" x2="600" y2="15" />
+    <!-- Línea horizontal de distribución -->
+    <line x1="200" y1="15" x2="1000" y2="15" />
+    <!-- Bajadas a las 3 columnas con flechas -->
+    <line x1="200" y1="15" x2="200" y2="35" />
+    <polygon points="195,33 200,40 205,33" fill="#2b6e49" />
+    
+    <line x1="600" y1="15" x2="600" y2="35" />
+    <polygon points="595,33 600,40 605,33" fill="#2b6e49" />
+    
+    <line x1="1000" y1="15" x2="1000" y2="35" />
+    <polygon points="995,33 1000,40 1005,33" fill="#2b6e49" />
+  </svg>
 
-  <!-- GRILLA DE 3 COLUMNAS -->
+  <!-- GRILLA PRINCIPAL DE 3 COLUMNAS -->
   <div class="columns-grid">
 
-    <!-- COLUMNA 1: OE1 -->
+    <!-- ================= COLUMNA 1: OE1 ================= -->
     <div class="column">
       <div class="column-header">
-        <h3>OBJETIVO ESPECÍFICO 1</h3>
-        <p>Comparar los valores de la frecuencia (Hz) captados en cada especie vegetal bajo condiciones ambientales estandarizadas.</p>
+        <h3>OBJETIVO ESPECÍFICO 1</h3>[cite: 7]
+        <p>Comparar los valores de la frecuencia (Hz) captados en cada especie vegetal bajo condiciones ambientales estandarizadas.</p>[cite: 7]
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 1.1 -->
       <div class="step-card">
-        1. Preparar las condiciones ambientales: temperatura estable a 22 °C ± 1 °C y humedad del suelo equilibrada en ambas especies.
+        <div class="step-header">
+          <span class="step-num">1</span>
+          <div class="step-text">Preparar las condiciones ambientales: temperatura estable a 22 °C ± 1 °C y humedad del suelo constante en ambas especies.</div>[cite: 7]
+        </div>
+        <div class="img-grid-2">
+          <div class="step-img-container">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/17332586117982827277_0" alt="Epipremnum aureum (Potos)">
+          </div>
+          <div class="step-img-container">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/9870468654056511458_0" alt="Aloe vera">
+          </div>
+        </div>
+        <div class="caption">Modelos: Potos y Aloe vera en reposo</div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 1.2 -->
       <div class="step-card">
-        2. Colocar los electrodos Ag/AgCl desechables conectados al pin A0 del Arduino Uno R3 (vía módulo AD8232), a una distancia fija de 5 cm sobre la hoja.
+        <div class="step-header">
+          <span class="step-num">2</span>
+          <div class="step-text">Colocar los electrodos Ag/AgCl desechables conectados al pin A0 del Arduino Uno R3, a una distancia fija de 5 cm entre parches sobre la hoja.</div>[cite: 7]
+        </div>
+        <div class="img-grid-2">
+          <div class="step-img-container">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/654114410799263701_0" alt="Arduino Uno R3">
+          </div>
+          <div class="step-img-container">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/7473852372922195717_0" alt="Electrodos de gel Ag/AgCl">
+          </div>
+        </div>
+        <div class="caption">Arduino Uno R3 + Electrodos Ag/AgCl</div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 1.3 -->
       <div class="step-card">
-        3. Registrar la señal bioeléctrica durante 15 min por sesión, realizando mínimo 3 a 5 repeticiones por especie a la misma hora en días distintos.
+        <div class="step-header">
+          <span class="step-num">3</span>
+          <div class="step-text">Registrar la señal bioeléctrica durante 15 min por sesión, realizando mínimo 3 a 5 repeticiones por especie en el monitor serie del Arduino.</div>[cite: 7]
+        </div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 1.4 -->
       <div class="step-card">
-        4. Convertir los voltajes registrados en frecuencia media (Hz) y comparar los promedios obtenidos entre <em>Epipremnum aureum</em> y <em>Aloe vera</em>.
+        <div class="step-header">
+          <span class="step-num">4</span>
+          <div class="step-text">Convertir los voltajes registrados en frecuencia media (Hz) y comparar los promedios obtenidos entre <em>Epipremnum aureum</em> y <em>Aloe vera</em>.</div>[cite: 7]
+        </div>
       </div>
     </div>
 
-    <!-- COLUMNA 2: OE2 -->
+
+    <!-- ================= COLUMNA 2: OE2 ================= -->
     <div class="column">
       <div class="column-header">
-        <h3>OBJETIVO ESPECÍFICO 2</h3>
-        <p>Analizar la variabilidad de electricidad y frecuencia entre las dos especies mediante medidas estadísticas.</p>
+        <h3>OBJETIVO ESPECÍFICO 2</h3>[cite: 7]
+        <p>Analizar la variabilidad de electricidad y frecuencia entre las dos especies mediante medidas estadísticas.</p>[cite: 7]
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 2.1 -->
       <div class="step-card">
-        1. A partir de los datos de frecuencia (Hz) de las repeticiones por especie, calcular la desviación estándar de cada conjunto de datos.
+        <div class="step-header">
+          <span class="step-num">1</span>
+          <div class="step-text">A partir de los datos de frecuencia (Hz) de las 5 repeticiones por especie, calcular la desviación estándar de cada conjunto de datos.</div>[cite: 7]
+        </div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 2.2 -->
       <div class="step-card">
-        2. Calcular el coeficiente de variación: CV% = (desviación estándar ÷ promedio) × 100, utilizando Google Sheets / Excel.
+        <div class="step-header">
+          <span class="step-num">2</span>
+          <div class="step-text">Calcular el coeficiente de variación: <strong>CV% = (desviación estándar ÷ promedio) × 100</strong>, utilizando Google Sheets / Excel.</div>[cite: 7]
+        </div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 2.3 -->
       <div class="step-card">
-        3. Comparar el coeficiente de variación (CV %) de <em>Epipremnum aureum</em> frente al de <em>Aloe vera</em> para evaluar la estabilidad de cada firma bioeléctrica.
+        <div class="step-header">
+          <span class="step-num">3</span>
+          <div class="step-text">Comparar el coeficiente de variación (CV %) de <em>Epipremnum aureum</em> frente al de <em>Aloe vera</em> para evaluar la estabilidad de cada firma bioeléctrica.</div>[cite: 7]
+        </div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 2.4 -->
       <div class="step-card">
-        4. Relacionar los resultados de variabilidad con la fisiología de cada especie (tasa de transpiración, amortiguamiento por gel acuífero y flujo iónico K⁺/Cl⁻).
+        <div class="step-header">
+          <span class="step-num">4</span>
+          <div class="step-text">Relacionar los resultados de variabilidad con la fisiología de cada especie (tasa de transpiración, flujo iónico K⁺/Cl⁻ y gel acuífero).</div>[cite: 7]
+        </div>
       </div>
     </div>
 
-    <!-- COLUMNA 3: OE3 -->
+
+    <!-- ================= COLUMNA 3: OE3 ================= -->
     <div class="column">
       <div class="column-header">
-        <h3>OBJETIVO ESPECÍFICO 3</h3>
-        <p>Establecer correlaciones entre características anatómicas foliares (área, grosor, contenido hídrico) y patrones de frecuencia bioeléctrica.</p>
+        <h3>OBJETIVO ESPECÍFICO 3</h3>[cite: 7]
+        <p>Establecer correlaciones entre características anatómicas foliares (área, grosor, contenido hídrico) y patrones de frecuencia bioeléctrica.</p>[cite: 7]
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 3.1 -->
       <div class="step-card">
-        1. Medir el grosor del tejido foliar (mm) en la zona del mesófilo de cada hoja con pie de rey/calibrador metálico (precisión ±0.05 mm), presionando suavemente.
+        <div class="step-header">
+          <span class="step-num">1</span>
+          <div class="step-text">Medir el grosor del tejido foliar (mm) de cada hoja con pie de rey/calibrador metálico (precisión ±0.05 mm), presionando suavemente la hoja.</div>[cite: 7]
+        </div>
+        <div class="step-img-container">
+          <img src="http://googleusercontent.com/image_collection/image_retrieval/1483700360420559077_0" alt="Medición de grosor foliar con pie de rey">
+        </div>
+        <div class="caption">Calibrador digital midiendo el mesófilo foliar</div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 3.2 -->
       <div class="step-card">
-        2. Medir la longitud foliar (cm) desde la base del pecíolo hasta el ápice, manteniendo la distancia estandarizada de 5.00 cm entre electrodos.
+        <div class="step-header">
+          <span class="step-num">2</span>
+          <div class="step-text">Medir la longitud foliar (cm) desde la base del pecíolo hasta el ápice, fijando la distancia estandarizada de 5.00 cm entre parches.</div>[cite: 7]
+        </div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 3.3 -->
       <div class="step-card">
-        3. Registrar los datos anatómicos (grosor y longitud foliar) junto con los datos de frecuencia media (Hz) y variabilidad (CV%) de cada especie.
+        <div class="step-header">
+          <span class="step-num">3</span>
+          <div class="step-text">Registrar los datos anatómicos (grosor y longitud foliar) junto con los datos de frecuencia media (Hz) de cada especie.</div>[cite: 7]
+        </div>
       </div>
 
-      <div class="arrow-down">▼</div>
+      <div class="vertical-connector"></div>
 
+      <!-- PASO 3.4 -->
       <div class="step-card">
-        4. Calcular el coeficiente de correlación de Pearson para determinar si la morfología del mesófilo (clorofílico vs. acuífero) influye en la electrogénesis.
+        <div class="step-header">
+          <span class="step-num">4</span>
+          <div class="step-text">Relacionar los valores anatómicos foliares con los patrones de frecuencia bioeléctrica para determinar si la morfología del mesófilo (clorofílico vs. acuífero) influye en la electrogénesis.</div>[cite: 7]
+        </div>
       </div>
     </div>
 
