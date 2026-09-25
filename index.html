@@ -2,319 +2,265 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mapa Conceptual — Frecuencia Bioeléctrica en Plantas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagrama de Flujo — Frecuencia Bioeléctrica en Plantas</title>
 <style>
-:root{
-  --bg:#f7f6f2; --card:#ffffff; --text:#1c1c1a; --muted:#5f5e5a;
-  --line:#d8d6cd; --accent:#0f6e56; --accent-bg:#e1f5ee; --accent-text:#04342c;
-  --accent2:#853806; --accent2-bg:#faeeda; --accent2-text:#412402;
-  --radius:14px;
-  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+:root {
+  --bg-color: #f4f6f4;
+  --header-bg: #1c402e;
+  --header-border: #143022;
+  --header-text: #ffffff;
+  --card-bg: #e2ede6;
+  --card-border: #8ab89a;
+  --card-text: #1a2e22;
+  --arrow-color: #2d5a3f;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#1b1b19; --card:#242422; --text:#ece9df; --muted:#a9a79d;
-    --line:#3a3934; --accent:#5dcaa5; --accent-bg:#085041; --accent-text:#9fe1cb;
-    --accent2:#f2a623; --accent2-bg:#633806; --accent2-text:#fac775;
+
+body {
+  margin: 0;
+  padding: 30px 20px;
+  background-color: var(--bg-color);
+  font-family: var(--font-family);
+  display: flex;
+  justify-content: center;
+  color: var(--card-text);
+}
+
+.diagram-container {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* OBJETIVO GENERAL */
+.main-target {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  border: 2px solid var(--header-border);
+  border-radius: 10px;
+  padding: 16px 24px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.main-target strong {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* FLECHAS PRINCIPALES DE CONEXIÓN */
+.main-arrows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  text-align: center;
+  color: var(--arrow-color);
+  font-size: 20px;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+/* COLUMNAS DE OBJETIVOS ESPECÍFICOS */
+.columns-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 850px) {
+  .columns-grid {
+    grid-template-columns: 1fr;
+  }
+  .main-arrows {
+    display: none;
   }
 }
-:root[data-theme="dark"]{
-  --bg:#1b1b19; --card:#242422; --text:#ece9df; --muted:#a9a79d;
-  --line:#3a3934; --accent:#5dcaa5; --accent-bg:#085041; --accent-text:#9fe1cb;
-  --accent2:#f2a623; --accent2-bg:#633806; --accent2-text:#fac775;
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
-html{scroll-padding-top:env(safe-area-inset-top,0px);}
-*{box-sizing:border-box;}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;}
-.wrap{max-width:850px;margin:0 auto;padding:28px 20px 60px;}
 
-header{margin-bottom:24px;text-align:center;}
-h1{font-size:23px;font-weight:700;margin:0 0 6px;color:var(--text);}
-.sub{color:var(--muted);font-size:14.5px;margin:0 0 20px;}
+/* ENCABEZADOS DE OBJETIVO ESPECÍFICO */
+.column-header {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  border: 2px solid var(--header-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: center;
+  width: 100%;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+}
 
-.main-node{background:var(--accent-bg);color:var(--accent-text);border:2px solid var(--accent);border-radius:var(--radius);padding:18px 20px;margin-bottom:24px;text-align:center;}
-.main-node h2{margin:0 0 6px;font-size:14px;text-transform:uppercase;letter-spacing:1px;opacity:0.9;}
-.main-node p{margin:0;font-size:15px;font-weight:600;line-height:1.4;}
+.column-header h3 {
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 
-.species-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;}
-@media(max-width:600px){.species-grid{grid-template-columns:1fr;}}
-.species-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
-.species-card h3{margin:0 0 4px;font-size:15px;color:var(--accent);}
-.species-card p{margin:0;color:var(--muted);font-size:13px;}
+.column-header p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 400;
+  opacity: 0.95;
+}
 
-.section-title{font-size:16px;font-weight:700;margin:30px 0 16px;padding-bottom:6px;border-bottom:2px solid var(--line);display:flex;align-items:center;gap:8px;}
+/* CAJAS DE PASOS SECUENCIALES */
+.step-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.45;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
 
-.branch-container{display:flex;flex-direction:column;gap:20px;margin-bottom:30px;}
-.branch-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
-.branch-header{background:var(--accent-bg);color:var(--accent-text);padding:12px 16px;font-size:14px;font-weight:700;border-bottom:1px solid var(--line);}
-.branch-body{padding:14px 16px;font-size:13.5px;color:var(--muted);}
-
-.flow{position:relative;margin-top:20px;}
-.flow::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:2px;background:var(--line);}
-.step{position:relative;padding-left:52px;margin-bottom:14px;}
-.badge{position:absolute;left:0;top:2px;width:38px;height:38px;border-radius:50%;background:var(--accent-bg);color:var(--accent-text);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13.5px;border:2px solid var(--bg);}
-
-details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
-summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
-summary::-webkit-details-marker{display:none;}
-summary .ttl{font-weight:600;font-size:14.5px;}
-summary .tag-oe{font-size:11px;font-weight:700;background:var(--accent2-bg);color:var(--accent2-text);padding:2px 6px;border-radius:4px;margin-left:8px;}
-summary .chev{transition:transform .2s;color:var(--muted);flex-shrink:0;}
-details[open] summary .chev{transform:rotate(90deg);}
-
-.body{padding:0 16px 14px 16px;color:var(--muted);font-size:13.5px;}
-.body ul{margin:6px 0 0;padding-left:18px;}
-.body li{margin-bottom:4px;}
-.analogy{background:var(--accent2-bg);color:var(--accent2-text);padding:8px 12px;border-radius:8px;margin-top:8px;font-size:12.5px;line-height:1.4;}
-code{background:var(--accent2-bg);color:var(--accent2-text);padding:1px 5px;border-radius:4px;font-size:12px;}
-pre{background:var(--accent2-bg);color:var(--accent2-text);padding:10px 12px;border-radius:8px;font-size:12px;overflow-x:auto;margin:8px 0 0;}
-
-.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:26px;}
-.summary-grid div{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;text-align:center;}
-.summary-grid strong{display:block;font-size:18px;color:var(--accent);}
-.summary-grid span{font-size:11.5px;color:var(--muted);}
+.arrow-down {
+  color: var(--arrow-color);
+  font-size: 16px;
+  margin: -6px 0;
+}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-<h1>Mapa Conceptual e Hilo Metodológico</h1>
-<p class="sub">Protocolo experimental integrado: Derivación de procedimientos a partir de los Objetivos de Investigación (Biología IB / "Sinfonía Vegetal").</p>
-</header>
+<div class="diagram-container">
 
-<!-- NODO RAIZ: OBJETIVO GENERAL -->
-<div class="main-node">
-<h2>Objetivo General</h2>
-<p>Analizar los perfiles de frecuencia bioeléctrica (Hz) en dos especies vegetales con morfologías foliares distintas de <em>Epipremnum aureum</em> y <em>Aloe vera</em> mediante un Arduino Uno R3 con electrodos descartables de gel para identificar patrones eléctricos característicos vinculados a su fisiología diferencial.</p>
-</div>
+  <!-- OBJETIVO GENERAL -->
+  <div class="main-target">
+    <strong>OBJETIVO GENERAL:</strong> Analizar los perfiles de frecuencia bioeléctrica (Hz) en dos especies vegetales con morfologías foliares distintas de <em>Epipremnum aureum</em> y <em>Aloe vera</em> mediante un Arduino Uno R3 con electrodos descartables de gel para identificar patrones eléctricos característicos vinculados a su fisiología diferencial.
+  </div>
 
-<!-- MODELOS BIOLÓGICOS -->
-<div class="species-grid">
-<div class="species-card">
-<h3>Epipremnum aureum (Potos)</h3>
-<p>Hoja ancha, fina y membranácea. Tasa de transpiración más dinámica y flujo iónico (K⁺, Cl⁻) activo con alta capacidad de respuesta rápida.</p>
-</div>
-<div class="species-card">
-<h3>Aloe vera (Sábila)</h3>
-<p>Hoja carnosa, suculenta y gruesa. Parénquima acuífero con alta capacitancia que amortigua cambios de potencial y estabiliza el ritmo bioeléctrico.</p>
-</div>
-</div>
+  <!-- FLECHAS DE CONEXIÓN -->
+  <div class="main-arrows">
+    <div>▼</div>
+    <div>▼</div>
+    <div>▼</div>
+  </div>
 
-<!-- RAMAS: OBJETIVOS ESPECÍFICOS -->
-<div class="section-title"><span>🎯</span> Desglose por Objetivos Específicos</div>
-<div class="branch-container">
+  <!-- GRILLA DE 3 COLUMNAS -->
+  <div class="columns-grid">
 
-<div class="branch-card">
-<div class="branch-header">OBJETIVO ESPECÍFICO 1</div>
-<div class="branch-body">
-<strong>Meta:</strong> Comparar los valores de la frecuencia (Hz) captados en cada especie vegetal bajo condiciones ambientales estandarizadas.<br>
-<strong>Indicador Primario:</strong> Frecuencia media de la señal eléctrica (Hz).<br>
-<strong>Método Principal:</strong> Filtrado analógico ECG (AD8232) + Captura digital en Arduino A0.
-</div>
-</div>
+    <!-- COLUMNA 1: OE1 -->
+    <div class="column">
+      <div class="column-header">
+        <h3>OBJETIVO ESPECÍFICO 1</h3>
+        <p>Comparar los valores de la frecuencia (Hz) captados en cada especie vegetal bajo condiciones ambientales estandarizadas.</p>
+      </div>
 
-<div class="branch-card">
-<div class="branch-header">OBJETIVO ESPECÍFICO 2</div>
-<div class="branch-body">
-<strong>Meta:</strong> Analizar la variabilidad de electricidad y frecuencia entre las dos especies mediante medidas estadísticas.<br>
-<strong>Indicador Primario:</strong> Coeficiente de Variación porcentual (CV%).<br>
-<strong>Método Principal:</strong> Registro continuo de 15 min + Procesamiento estadístico de dispersión en Excel.
-</div>
-</div>
+      <div class="arrow-down">▼</div>
 
-<div class="branch-card">
-<div class="branch-header">OBJETIVO ESPECÍFICO 3</div>
-<div class="branch-body">
-<strong>Meta:</strong> Establecer correlaciones entre características anatómicas foliares (área, grosor, contenido hídrico) y patrones de frecuencia bioeléctrica.<br>
-<strong>Indicador Primario:</strong> Grosor foliar del mesófilo (mm) y Longitud foliar (cm).<br>
-<strong>Método Principal:</strong> Metrología con calibrador pie de rey (±0.05 mm) + Correlación de Pearson.
-</div>
-</div>
+      <div class="step-card">
+        1. Preparar las condiciones ambientales: temperatura estable a 22 °C ± 1 °C y humedad del suelo equilibrada en ambas especies.
+      </div>
 
-</div>
+      <div class="arrow-down">▼</div>
 
-<!-- PROCEDIMIENTO METODOLÓGICO DERIVADO -->
-<div class="section-title"><span>🔄</span> Flujo Metodológico Integrado (Paso a Paso)</div>
-<p class="sub" style="margin-top:-10px;">Piénsalo como una receta de cocina: preparas los materiales, acondicionas el ambiente, sigues las reglas de medición diaria y sirves el plato (analizando los datos).</p>
+      <div class="step-card">
+        2. Colocar los electrodos Ag/AgCl desechables conectados al pin A0 del Arduino Uno R3 (vía módulo AD8232), a una distancia fija de 5 cm sobre la hoja.
+      </div>
 
-<div class="flow">
+      <div class="arrow-down">▼</div>
 
-<!-- PASO 0 -->
-<div class="step"><span class="badge">0</span>
-<details open><summary>
-<span class="ttl">Variables Controladas & Rigor Metodológico</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<ul>
-<li><strong>Control Térmico:</strong> Temperatura estable a <code>22°C ± 1°C</code> (evita alterar la cinética de canales iónicos).</li>
-<li><strong>Hidratación Homogénea:</strong> Riego simultáneo 24 h antes del experimento para equilibrar la turgencia.</li>
-<li><strong>Estandarización Geométrica:</strong> Distancia fija de <code>5 cm</code> entre electrodos en la superficie foliar.</li>
-</ul>
-<div class="analogy">💡 <strong>Anatomía del rigor:</strong> Mantener estas constantes garantiza que cualquier variación en los Hz responda a la especie y no a un factor externo.</div>
-</div></details></div>
+      <div class="step-card">
+        3. Registrar la señal bioeléctrica durante 15 min por sesión, realizando mínimo 3 a 5 repeticiones por especie a la misma hora en días distintos.
+      </div>
 
-<!-- PASO 1 -->
-<div class="step"><span class="badge">1</span>
-<details><summary>
-<span class="ttl">Equipamiento & Materiales</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<ul>
-<li><strong>Captura Electrónica:</strong> Arduino Uno R3 + Módulo amplificador ECG AD8232 + Cables jumper/cocodrilo.</li>
-<li><strong>Electrodos:</strong> Electrodos descartables de gel Ag/AgCl (mínimo 3: Medición [+], Referencia [−] y Tierra [GND]).</li>
-<li><strong>Metrología:</strong> Calibrador digital / Pie de rey (precisión 0.05 mm), higrómetro de suelo, termómetro digital.</li>
-</ul>
-<div class="analogy">🍳 <strong>Ingredientes principales:</strong> La preparación técnica limpia el "ruido" electromagnético antes de empezar.</div>
-</div></details></div>
+      <div class="arrow-down">▼</div>
 
-<!-- PASO 2 -->
-<div class="step"><span class="badge">2</span>
-<details><summary>
-<span class="ttl">Acondicionamiento del Espacio & Reposo Basal</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<ul>
-<li>Aislar las plantas de corrientes de aire, radiación solar cambiante y motores/transformadores eléctricos.</li>
-<li><strong>Reposo Basal Previo:</strong> Dejar descansar los especímenes sin contacto físico durante al menos <code>2 horas</code> antes de registrar datos para disipar el potencial de toque (mecanostrés).</li>
-</ul>
-</div></details></div>
+      <div class="step-card">
+        4. Convertir los voltajes registrados en frecuencia media (Hz) y comparar los promedios obtenidos entre <em>Epipremnum aureum</em> y <em>Aloe vera</em>.
+      </div>
+    </div>
 
-<!-- PASO 3 -->
-<div class="step"><span class="badge">3</span>
-<details><summary>
-<span class="ttl">Montaje Electrónico del Circuito</span>
-<span class="tag-oe">OE1</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<ul>
-<li>Colocar electrodo positivo (+) y negativo (−) a <code>5 cm</code> de distancia sobre la hoja seleccionada.</li>
-<li>Conectar la salida analógica <code>OUTPUT</code> del módulo AD8232 al pin <code>A0</code> del Arduino.</li>
-<li>Ubicación del electrodo de tierra (GND) en un tallo u hoja vecina no medida.</li>
-<li>Esperar <code>2 horas</code> tras colocar los electrodos para estabilizar el gel de Ag/AgCl sobre la epidermis foliar.</li>
-</ul>
-</div></details></div>
+    <!-- COLUMNA 2: OE2 -->
+    <div class="column">
+      <div class="column-header">
+        <h3>OBJETIVO ESPECÍFICO 2</h3>
+        <p>Analizar la variabilidad de electricidad y frecuencia entre las dos especies mediante medidas estadísticas.</p>
+      </div>
 
-<!-- PASO 4 -->
-<div class="step"><span class="badge">4</span>
-<details><summary>
-<span class="ttl">Programa de Captura & Ingesta de Datos</span>
-<span class="tag-oe">OE1</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<pre>void setup() {
-  Serial.begin(9600); // Comunicación serie a 9600 baudios
-}
-void loop() {
-  int valor = analogRead(A0); // Lee el voltaje analógico (0-1023)
-  Serial.println(valor);
-  delay(20); // Retardo de 20 ms = Muestreo a ~50 Hz
-}</pre>
-<div class="analogy">
-<strong>Muestreo continuo:</strong> Un retardo de 20 ms genera 50 lecturas por segundo (50 Hz), tasa óptima para registrar oscilaciones electrofisiológicas basales sin saturar el almacenamiento.
-</div>
-Exportación directa mediante script de Python o puerto serie hacia archivos estructurados en formato CSV/Excel.
-</div></details></div>
+      <div class="arrow-down">▼</div>
 
-<!-- PASO 5 -->
-<div class="step"><span class="badge">5</span>
-<details><summary>
-<span class="ttl">Rutina de Muestreo Diario</span>
-<span class="tag-oe">OE1</span><span class="tag-oe">OE2</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<ul>
-<li>Verificar temperatura ambiente (22°C) e inspeccionar % de humedad del sustrato.</li>
-<li>Grabación continua durante <code>15 minutos</code> sin perturbaciones acústicas o mecánicas.</li>
-<li>Nomenclatura estandarizada: <code>Especie_Fecha_Hora_repN.csv</code> (Ej. <code>Potos_2026-05-10_rep1.csv</code>).</li>
-<li>Realizar repeticiones (<code>n ≥ 3</code>) en días distintos a la misma hora para asegurar validez estadística.</li>
-</ul>
-</div></details></div>
+      <div class="step-card">
+        1. A partir de los datos de frecuencia (Hz) de las repeticiones por especie, calcular la desviación estándar de cada conjunto de datos.
+      </div>
 
-<!-- PASO 6 -->
-<div class="step"><span class="badge">6</span>
-<details><summary>
-<span class="ttl">Caracterización Morphométrica Foliar</span>
-<span class="tag-oe">OE3</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<ul>
-<li><strong>Grosor Foliar (mm):</strong> Medición con calibrador pie de rey, ejercido con presión suave continua en el área inter-electrodo. Registra la resistencia pasiva del mesófilo al flujo de iones (K⁺, Cl⁻).</li>
-<li><strong>Longitud Foliar (cm):</strong> Medición desde la base del pecíolo hasta el ápice foliar con regla milimetrada.</li>
-</ul>
-</div></details></div>
+      <div class="arrow-down">▼</div>
 
-<!-- PASO 7 -->
-<div class="step"><span class="badge">7</span>
-<details><summary>
-<span class="ttl">Procesamiento Analítico en Excel</span>
-<span class="tag-oe">OE1</span><span class="tag-oe">OE2</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<ul>
-<li><strong>Frecuencia Media (Hz):</strong> Conteo de picos y oscilaciones por segundo (Responde al <strong>OE1</strong>).</li>
-<li><strong>Coeficiente de Variación (CV%):</strong> Medida de la fluctuación relativa durante los 15 min (Responde al <strong>OE2</strong>).
-<br>Fórmula: <code>=DESVEST(rango)/PROMEDIO(rango)*100</code></li>
-</ul>
-Consolidación en Matriz Resumen: <code>Especie | Hz Promedio | CV% | Grosor (mm) | Longitud (cm) | Temp (°C) | Humedad (%)</code>.
-</div></details></div>
+      <div class="step-card">
+        2. Calcular el coeficiente de variación: CV% = (desviación estándar ÷ promedio) × 100, utilizando Google Sheets / Excel.
+      </div>
 
-<!-- PASO 8 -->
-<div class="step"><span class="badge">8</span>
-<details><summary>
-<span class="ttl">Evaluación Estadística & Selección de Pruebas</span>
-<span class="tag-oe">OE1</span><span class="tag-oe">OE2</span><span class="tag-oe">OE3</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-<ul>
-<li><strong>Comparación de 2 Especies (OE1 / OE2):</strong>
-  <ul>
-    <li>Si los datos cumplen distribución normal (p > 0.05) → <strong>Prueba t de Student</strong>.</li>
-    <li>Si no cumplen normalidad → <strong>Prueba de Wilcoxon / Mann-Whitney</strong>.</li>
-  </ul>
-</li>
-<li><strong>Múltiples Muestras o Días (> 2 grupos):</strong>
-  <ul>
-    <li>Distribución normal → <strong>ANOVA de una vía</strong>.</li>
-    <li>No normal → <strong>Prueba de Kruskal-Wallis</strong>.</li>
-  </ul>
-</li>
-<li><strong>Frecuencia Categórica de Picos:</strong> <strong>Prueba de Chi-cuadrado (χ²)</strong> de independencia.</li>
-<li><strong>Correlación Anatómica (OE3):</strong> Coeficiente de correlación de Pearson entre grosor/longitud foliar y la frecuencia (Hz).</li>
-</ul>
-</div></details></div>
+      <div class="arrow-down">▼</div>
 
-<!-- PASO 9 -->
-<div class="step"><span class="badge">9</span>
-<details><summary>
-<span class="ttl">Conclusión Integrada (El "Plato Servido")</span>
-<span class="chev">›</span>
-</summary>
-<div class="body">
-Sintetizar la respuesta a la Pregunta General evaluando si el parénquima acuífero carnoso de <em>Aloe vera</em> genera una firma eléctrica más estable y de menor frecuencia en comparación con la respuesta dinámica de <em>Epipremnum aureum</em>.
-</div></details></div>
+      <div class="step-card">
+        3. Comparar el coeficiente de variación (CV %) de <em>Epipremnum aureum</em> frente al de <em>Aloe vera</em> para evaluar la estabilidad de cada firma bioeléctrica.
+      </div>
+
+      <div class="arrow-down">▼</div>
+
+      <div class="step-card">
+        4. Relacionar los resultados de variabilidad con la fisiología de cada especie (tasa de transpiración, amortiguamiento por gel acuífero y flujo iónico K⁺/Cl⁻).
+      </div>
+    </div>
+
+    <!-- COLUMNA 3: OE3 -->
+    <div class="column">
+      <div class="column-header">
+        <h3>OBJETIVO ESPECÍFICO 3</h3>
+        <p>Establecer correlaciones entre características anatómicas foliares (área, grosor, contenido hídrico) y patrones de frecuencia bioeléctrica.</p>
+      </div>
+
+      <div class="arrow-down">▼</div>
+
+      <div class="step-card">
+        1. Medir el grosor del tejido foliar (mm) en la zona del mesófilo de cada hoja con pie de rey/calibrador metálico (precisión ±0.05 mm), presionando suavemente.
+      </div>
+
+      <div class="arrow-down">▼</div>
+
+      <div class="step-card">
+        2. Medir la longitud foliar (cm) desde la base del pecíolo hasta el ápice, manteniendo la distancia estandarizada de 5.00 cm entre electrodos.
+      </div>
+
+      <div class="arrow-down">▼</div>
+
+      <div class="step-card">
+        3. Registrar los datos anatómicos (grosor y longitud foliar) junto con los datos de frecuencia media (Hz) y variabilidad (CV%) de cada especie.
+      </div>
+
+      <div class="arrow-down">▼</div>
+
+      <div class="step-card">
+        4. Calcular el coeficiente de correlación de Pearson para determinar si la morfología del mesófilo (clorofílico vs. acuífero) influye en la electrogénesis.
+      </div>
+    </div>
+
+  </div>
 
 </div>
 
-<!-- RESUMEN DE PARÁMETROS CLAVE -->
-<div class="summary-grid">
-<div><strong>22°C ± 1°C</strong><span>Temperatura Fija</span></div>
-<div><strong>5 cm</strong><span>Distancia Electrodo</span></div>
-<div><strong>50 Hz</strong><span>Muestreo Arduino</span></div>
-<div><strong>15 min</strong><span>Registro por Toma</span></div>
-<div><strong>n ≥ 3</strong><span>Repeticiones Válidas</span></div>
-</div>
-
-</div>
 </body>
 </html>
